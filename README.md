@@ -34,7 +34,7 @@ Webhook Registration	Automatically registers Telegram webhook for cloud hosting
 ✅ All nodes are visually connected in n8n — no manual coding required!
 
 🛠️ Setup Guide (Step-by-Step)
-1️⃣ Get Your Telegram Bot Token
+1️⃣ Create Your Telegram Bot
 Open Telegram → Search @BotFather
 
 Start chat → Type /newbot
@@ -43,7 +43,7 @@ Follow instructions → Name your bot
 
 Copy the Bot Token (e.g., 123456789:ABCdefGhIJklMNopQRstUVwxYZ) ✅ Save this for later
 
-2️⃣ Get Free OpenRouter API Key
+2️⃣ Get Your Free OpenRouter API Key
 Go to OpenRouter.ai
 
 Sign up → No credit card needed
