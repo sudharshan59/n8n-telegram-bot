@@ -1,0 +1,183 @@
+{
+  "name": "Telegram Bot",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a99cc106-64e3-4fbe-8c6e-a880ff37068e",
+      "name": "Telegram Trigger",
+      "webhookId": "1ef0568b-744d-49f2-b45c-a1f9552a5df4",
+      "notesInFlow": false,
+      "alwaysOutputData": false,
+      "credentials": {
+        "telegramApi": {
+          "id": "YySazJYpGWfS8XrN",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $node[\"Telegram Trigger\"].json.message.chat.id }}",
+        "text": "={{ $node[\"Function\"].json.reply }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1072,
+        0
+      ],
+      "id": "5c1f7e49-2c64-43d0-bf70-a74a60e168b1",
+      "name": "Send a text message",
+      "webhookId": "81f8046b-e287-4277-b46a-b9d25bc1fae8",
+      "credentials": {
+        "telegramApi": {
+          "id": "YySazJYpGWfS8XrN",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const aiOutput = $input.item.json?.output;\n\nif (!aiOutput || typeof aiOutput !== 'string') {\n  return [];\n}\n\nconst MAX_LENGTH = 4000;\nlet reply = aiOutput;\n\nif (aiOutput.length > MAX_LENGTH) {\n  reply = aiOutput.substring(0, MAX_LENGTH) + \"… (truncated)\";\n}\n\nreturn [\n  {\n    json: {\n      reply: reply\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        784,
+        0
+      ],
+      "id": "3b1b8a75-6624-4cb6-a196-c0f9e3586b9d",
+      "name": "Function"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $node[\"Telegram Trigger\"].json.message.text }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "779fee59-bd8c-4107-b6e0-a46c1dc3a92f",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "lastMessage"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        528,
+        304
+      ],
+      "id": "cae3ff63-83a1-4052-b07e-33f4f62259ca",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "model": "meta-llama/llama-3.3-70b-instruct:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        288,
+        208
+      ],
+      "id": "1115a15f-dcd5-40ed-88d5-abdedf84f0f0",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "PwGyI7YjNC2wfEh6",
+          "name": "OpenRouter account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Function",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "8d951444-7397-4137-a8ba-eb460ac8d9a3",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "abed7933a312c792fa839945cf16d1711c3421496e519b18aabe47f7e2908b43"
+  },
+  "id": "PHmixXHnaRNFv6eP",
+  "tags": []
+}
