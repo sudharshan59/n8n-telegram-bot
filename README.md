@@ -1,5 +1,8 @@
 🤖 PingBot — AI-Powered Telegram Assistant
 Smart replies. Zero cost. Fully automated. Built with n8n + OpenRouter
+Start chat → Send a message like:
+🧪 Test Your Bot
+(Go to Telegram → Start chatting with your bot): [👉 @MyN8NammaBot]
 
 🚀 What Is PingBot?
 PingBot is your personal AI assistant on Telegram — powered by Llama 3.3 70B via OpenRouter and orchestrated using n8n, the visual automation platform.
@@ -103,9 +106,7 @@ Toggle “Active” → ON (top-right corner) ✅ Your bot is now live and liste
 🧪 Test Your Bot
 Go to Telegram → Search your bot: @YourBotNameBot
 
-Start chat → Send a message like:
-🧪 Test Your Bot
-Go to Telegram → Start chatting with your bot: 👉 @MyN8NammaBot
+
 
 Send a message like:
 👉 Explain AI in Tamil
