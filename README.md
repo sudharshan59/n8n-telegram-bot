@@ -102,8 +102,10 @@ Toggle “Active” → ON (top-right corner) ✅ Your bot is now live and liste
 Go to Telegram → Search your bot: @YourBotNameBot
 
 Start chat → Send a message like:
+🧪 Test Your Bot
+Go to Telegram → Start chatting with your bot: 👉 @MyN8NammaBot
 
-text
+Send a message like:
 👉 Explain AI in Tamil
 ✅ Bot replies instantly:
 
