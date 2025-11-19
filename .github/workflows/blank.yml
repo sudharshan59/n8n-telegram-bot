@@ -1,10 +1,16 @@
+# .github/workflows/keep-render-alive.yml
 name: Keep Render Alive
+
 on:
   schedule:
-    - cron: '*/10 * * * *'  # Every 10 minutes
+    - cron: '*/10 * * * *'  # Runs every 10 minutes
+  workflow_dispatch:       # Allows manual trigger
+
 jobs:
-  keep-alive:
+  ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping n8n
-        run: curl -s https://n8n-d8f7.onrender.com > /dev/null
+      - name: Ping n8n on Render
+        run: |
+          echo "Pinging https://n8n-d8f7.onrender.com"
+          curl -s -o /dev/null -w "%{http_code}" https://n8n-d8f7.onrender.com
